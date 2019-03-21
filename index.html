@@ -23,6 +23,7 @@ body {
 		});
 
 		var player;
+		var enemy2;
 		var starfield;
 		var cursors;
 		var bank;
@@ -45,6 +46,7 @@ body {
 			game.load.image('starfield', 'assets/starfield.png');
 			game.load.image('ship', 'assets/ship.png');
 			game.load.image('bullet', 'assets/bullets/bullet.png');
+			game.load.image('enemy2', 'assets/enemies/enemy2.png');
 
 		}
 
@@ -71,6 +73,21 @@ body {
 			game.physics.enable(player, Phaser.Physics.ARCADE);
 			player.body.maxVelocity.setTo(MAXSPEED, MAXSPEED);
 			player.body.drag.setTo(DRAG, DRAG);
+			
+			// The enemies - Are we the baddies?
+			enemy2 = game.add.group();
+			enemy2.enableBody = true;
+			enemy2.physicsBodyType = Phaser.Physics.ARCADE;
+			enemy2.createMultiple(5, 'enemy2');
+			enemy2.setAll('anchor.x', 0.5);
+			enemy2.setAll('anchor.y', 0.5);
+			enemy2.setAll('scale.x', 0.5);
+			enemy2.setAll('scale.y', 0.5);
+			enemy2.setAll('angle', 180);
+			enemy2.setAll('outOfBoundsKill', true);
+			enemy2.setAll('checkWorldBounds', true);
+			
+			launchEnemy2();
 
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
@@ -165,6 +182,23 @@ body {
 				}
 			}
 		}
+		
+		function launchEnemy2(){
+			var MIN_ENEMY_SPACING = 300;
+			var MAX_ENEMY_SPACING = 3000;
+			var ENEMY_SPEED = 300;
+			
+			var enemy = enemy2.getFirstExists(false);
+			
+			if(enemy){
+				enemy.reset(game.rnd.integerInRange(0, game.width), -20);
+				enemy.body.velocity.x = game.rnd.integerInRange(-300, 300);
+				enemy.body.velocity.y = ENEMY_SPEED;
+				enemy.body.drag.x = 100;
+			}
+			game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
+		}
+		
 	</script>
 </body>
 </html>
