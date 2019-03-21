@@ -75,7 +75,7 @@ body {
 			enemy2.setAll('anchor.y', 0.5);
 			enemy2.setAll('scale.x', 0.5);
 			enemy2.setAll('scale.y', 0.5);
-			enemy2.setAll('angle', 270);
+			enemy2.setAll('angle', -90);
 			enemy2.setAll('outOfBoundsKill', true);
 			enemy2.setAll('checkWorldBounds', true);
 			
@@ -174,9 +174,9 @@ body {
 				enemy.body.drag.y = 50;
 				
 				//  Update function for each enemy ship to update rotation etc
-+        			enemy.update = function(){
-+          				enemy.angle = 180 - game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
-+        			}
++        			//enemy.update = function(){
++          			//	enemy.angle = 180 - game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
++        			//}
 			}
 			game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
 		}
