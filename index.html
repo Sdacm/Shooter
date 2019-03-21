@@ -187,7 +187,7 @@ body {
 					enemy.trail.y = enemy.y;
 					
 					//  Kill enemies once they go off screen
-					if (enemy.x < -20) {
+					if (enemy.x < 40) {
 						enemy.kill();
 					}
 				}
@@ -202,7 +202,7 @@ body {
 			enemyTrail.makeParticles('explosion', [1,2,3,4,5]);
 			enemyTrail.setYSpeed(20, -20);
 			enemyTrail.setRotation(50,-50);
-			enemyTrail.setAlpha(0.4, 0, 800);
+			enemyTrail.setAlpha(0, 0.4, 800);
 			enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
 			enemy.trail = enemyTrail;
 		}
