@@ -75,7 +75,7 @@ body {
 			enemy2.setAll('anchor.y', 0.5);
 			enemy2.setAll('scale.x', 0.5);
 			enemy2.setAll('scale.y', 0.5);
-			enemy2.setAll('angle', 90);
+			enemy2.setAll('angle', 180);
 			enemy2.setAll('outOfBoundsKill', true);
 			enemy2.setAll('checkWorldBounds', true);
 			
@@ -160,26 +160,26 @@ body {
 			}
 		}
 		
-		function launchEnemy2(){
-			var MIN_ENEMY_SPACING = 300;
-			var MAX_ENEMY_SPACING = 3000;
-			var ENEMY_SPEED = 300;
+		//function launchEnemy2(){
+		//	var MIN_ENEMY_SPACING = 300;
+		//	var MAX_ENEMY_SPACING = 3000;
+		//	var ENEMY_SPEED = 300;
 			
-			var enemy = enemy2.getFirstExists(false);
+		//	var enemy = enemy2.getFirstExists(false);
 			
-			if(enemy){
-				enemy.reset(game.width+20, game.rnd.integerInRange(0, game.height));
-				enemy.body.velocity.x = -ENEMY_SPEED;
-				enemy.body.velocity.y = game.rnd.integerInRange(-300, 300);
-				enemy.body.drag.y = 50;
+		//	if(enemy){
+		//		enemy.reset(game.width+20, game.rnd.integerInRange(0, game.height));
+		//		enemy.body.velocity.x = -ENEMY_SPEED;
+		//		enemy.body.velocity.y = game.rnd.integerInRange(-300, 300);
+		//		enemy.body.drag.y = 50;
 				
 				//  Update function for each enemy ship to update rotation etc
 +        			//enemy.update = function(){
 +          			//	enemy.angle = 180 - game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
 +        			//}
-			}
-			game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
-		}
+		//	}
+		//	game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
+		//}
 		
 	</script>
 </body>
