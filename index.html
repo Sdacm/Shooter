@@ -167,10 +167,10 @@ body {
 			var enemy = enemy2.getFirstExists(false);
 			
 			if(enemy){
-				enemy.reset(game.rnd.integerInRange(0, game.width), -20);
-				enemy.body.velocity.x = game.rnd.integerInRange(-300, 300);
-				enemy.body.velocity.y = ENEMY_SPEED;
-				enemy.body.drag.x = 100;
+				enemy.reset(width+20, game.rnd.integerInRange(0, game.height));
+				enemy.body.velocity.x = -ENEMY_SPEED;
+				enemy.body.velocity.y = game.rnd.integerInRange(-300, 300);
+				enemy.body.drag.y = 50;
 			}
 			game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
 		}
