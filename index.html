@@ -329,7 +329,7 @@ body {
 						this.body.y = this.startingY + Math.sin((this.x) / frequency) * spread;
 						//  Squish and rotate ship for illusion of "banking"
 						bank = Math.cos((this.y + 60) / frequency)
-						this.scale.y = 1 - Math.abs(bank) / 8;
+						this.scale.y = 0.7 - Math.abs(bank) / 8;
 						this.angle = - bank * 2
 						//  Fire
 						enemyBullet = enemy3Bullets.getFirstExists(false);
