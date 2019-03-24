@@ -31,6 +31,11 @@ body {
 		var bullets;
 		var fireButton;
 		var bulletTimer = 0;
+		var shields;
+		var score = 0;
+		var scoreText;
+		var enemy2LaunchTimer;
+		var gameOver;
 		var ACCLERATION = 600;
 		var DRAG = 400;
 		var MAXSPEED = 400;
@@ -63,10 +68,17 @@ body {
 			bullets.setAll('checkWorldBounds', true);
 			//  The hero!
 			player = game.add.sprite(100, game.height / 2, 'ship');
+			player.health = 100;
 			player.anchor.setTo(0.5, 0.5);
 			game.physics.enable(player, Phaser.Physics.ARCADE);
 			player.body.maxVelocity.setTo(MAXSPEED, MAXSPEED);
 			player.body.drag.setTo(DRAG, DRAG);
+			player.events.onKilled.add(function(){
+				shipTrail.kill();
+			});
+			player.events.onRevived.add(function(){
+				shipTrail.start(false, 5000, 10);
+			});
 			
 			// The enemies - Are we the baddies?
 			enemy2 = game.add.group();
@@ -81,12 +93,13 @@ body {
 			enemy2.forEach(function(enemy){
 				addEnemyEmitterTrail(enemy);
 				enemy.body.setSize(enemy.width * 3 / 4, enemy.height * 3 / 4);
+				enemy.damageAmount = 20;
 				enemy.events.onKilled.add(function(){
 					enemy.trail.kill();
 				});
 			});
 			
-			launchEnemy2();
+			game.time.events.add(1000, launchEnemy2);
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
@@ -113,6 +126,24 @@ body {
 			explosions.forEach( function(explosion) {
 				explosion.animations.add('explosion');
 			});
+			
+			//  Shields stat
+			shields = game.add.text(game.world.width - 150, 10, 'Shields: ' + player.health +'%', { font: '20px Arial', fill: '#fff' });
+			shields.render = function () {
+				shields.text = 'Shields: ' + Math.max(player.health, 0) +'%';
+			};
+			
+			//  Score
+			scoreText = game.add.text(10, 10, '', { font: '20px Arial', fill: '#fff' });
+			scoreText.render = function () {
+				scoreText.text = 'Score: ' + score;
+			};
+			scoreText.render();
+			
+			//  Game over text
+			gameOver = game.add.text(game.world.centerX, game.world.centerY, 'GAME OVER!', { font: '84px Arial', fill: '#fff' });
+			gameOver.anchor.setTo(0.5, 0.5);
+			gameOver.visible = false;
 		}
 		function update() {
 			//  Scroll the background
@@ -147,7 +178,7 @@ body {
 				player.body.acceleration.y = 0;
 			}
 			//  Fire bullet
-			if (player.alive && fireButton.isDown) {
+			if (player.alive && (fireButton.isDown || game.input.activePointer.isDown)) {
 				fireBullet();
 			}
 			//  Keep the shipTrail lined up with the ship
@@ -158,6 +189,24 @@ body {
 			game.physics.arcade.overlap(player, enemy2, shipCollide, null, this);
 			game.physics.arcade.overlap(enemy2, bullets, hitEnemy, null, this);
 			
+			//  Game over?
+			if (! player.alive && gameOver.visible === false) {
+				gameOver.visible = true;
+				var fadeInGameOver = game.add.tween(gameOver);
+				fadeInGameOver.to({alpha: 1}, 1000, Phaser.Easing.Quintic.Out);
+				fadeInGameOver.onComplete.add(setResetHandlers);
+				fadeInGameOver.start();
+				function setResetHandlers() {
+					//  The "click to restart" handler
+					tapRestart = game.input.onTap.addOnce(_restart,this);
+					spaceRestart = fireButton.onDown.addOnce(_restart,this);
+					function _restart() {
+						tapRestart.detach();
+						spaceRestart.detach();
+						restart();
+					}
+				}
+			}
 		}
 		
 		function render() {
@@ -217,7 +266,8 @@ body {
 				}
 				
 			}
-			game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
+			//Send another enemy soon
+			enemy2LaunchTimer = game.time.events.add(game.rnd.integerInRange(MIN_ENEMY_SPACING, MAX_ENEMY_SPACING), launchEnemy2);
 		}
 		
 		function addEnemyEmitterTrail(enemy) {
@@ -238,6 +288,9 @@ body {
 			explosion.alpha = 0.7;
 			explosion.play('explosion', 30, false, true);
 			enemy.kill();
+			
+			player.damage(enemy.damageAmount);
+			shields.render();
 		}
 		
 		function hitEnemy(enemy, bullet) {
@@ -248,6 +301,25 @@ body {
 			explosion.play('explosion', 30, false, true);
 			enemy.kill();
 			bullet.kill();
+			
+			// Increase score
+			score += enemy.damageAmount * 10;
+			scoreText.render()
+		}
+		
+		function restart () {
+			//  Reset the enemies
+			enemy2.callAll('kill');
+			game.time.events.remove(enemy2LaunchTimer);
+			game.time.events.add(1000, launchEnemy2);
+			//  Revive the player
+			player.revive();
+			player.health = 100;
+			shields.render();
+			score = 0;
+			scoreText.render();
+			//  Hide the text
+			gameOver.visible = false;
 		}
 		
 	</script>
