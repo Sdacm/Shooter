@@ -327,12 +327,10 @@ body {
 					enemy.update = function(){
 						//  Wave movement
 						this.body.y = this.startingY + Math.sin((this.x) / frequency) * spread;
-						/**
 						//  Squish and rotate ship for illusion of "banking"
-						bank = Math.cos((this.x + 60) / frequency)
-						this.scale.y = Math.abs(bank) / 8;
+						bank = Math.cos((this.y + 60) / frequency)
+						this.scale.y = 1 - Math.abs(bank) / 8;
 						this.angle = -90 - bank * 2
-						*/
 						//  Fire
 						enemyBullet = enemy3Bullets.getFirstExists(false);
 						if (enemyBullet && this.alive && this.bullets && this.x <  game.width * 7 / 8 &&
