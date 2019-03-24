@@ -183,11 +183,14 @@ body {
 			player.body.acceleration.x = 0;
 			if (cursors.up.isDown) {
 				player.body.acceleration.y = -ACCLERATION;
-			} else if (cursors.down.isDown) {
+			}
+			if (cursors.down.isDown) {
 				player.body.acceleration.y = ACCLERATION;
-			} else if (cursors.left.isDown) {
+			}
+			if (cursors.left.isDown) {
 				player.body.acceleration.x = -ACCLERATION;
-			} else if (cursors.right.isDown) {
+			}
+			if (cursors.right.isDown) {
 				player.body.acceleration.x = ACCLERATION;
 			}
 			//  Stop at screen edges
