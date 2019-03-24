@@ -110,7 +110,7 @@ body {
 			enemy3Bullets = game.add.group();
 			enemy3Bullets.enableBody = true;
 			enemy3Bullets.physicsBodyType = Phaser.Physics.ARCADE;
-			enemy3Bullets.createMultiple(30, 'blueEnemyBullet');
+			enemy3Bullets.createMultiple(30, 'enemy3Bullet');
 			enemy3Bullets.callAll('crop', null, {x: 90, y: 0, width: 90, height: 70});
 			enemy3Bullets.setAll('alpha', 0.9);
 			enemy3Bullets.setAll('anchor.x', 0.5);
