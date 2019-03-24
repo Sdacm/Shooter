@@ -53,8 +53,8 @@ body {
 			game.load.image('starfield', '/assets/starfield.png');
 			game.load.image('ship', '/assets/ship.png');
 			game.load.image('bullet', '/assets/bullets/bullet.png');
-			game.load.image('enemy2', '/assets/enemies/enemy2.png');
-			game.load.image('enemy3', '/assets/enemies/enemy3.png');
+			game.load.image('enemy2sp', '/assets/enemies/enemy2.png');
+			game.load.image('enemy3sp', '/assets/enemies/enemy3.png');
 			game.load.image('enemy3Bullet', '/assets/bullets/blue-enemy-bullet.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
 		}
@@ -91,7 +91,7 @@ body {
 			enemy2 = game.add.group();
 			enemy2.enableBody = true;
 			enemy2.physicsBodyType = Phaser.Physics.ARCADE;
-			enemy2.createMultiple(5, 'enemy2');
+			enemy2.createMultiple(5, 'enemy2sp');
 			enemy2.setAll('anchor.x', 0.5);
 			enemy2.setAll('anchor.y', 0.5);
 			enemy2.forEach(function(enemy){
@@ -124,7 +124,7 @@ body {
 			enemy3 = game.add.group();
 			enemy3.enableBody = true;
 			enemy3.physicsBodyType = Phaser.Physics.ARCADE;
-			enemy3.createMultiple(30, 'enemy3');
+			enemy3.createMultiple(30, 'enemy3sp');
 			enemy3.setAll('anchor.x', 0.5);
 			enemy3.setAll('anchor.y', 0.5);
 			enemy3.forEach(function(enemy){
