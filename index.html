@@ -336,8 +336,6 @@ body {
 			enemyTrail.setAlpha(0.4, 0, 800);
 			enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
 			enemy.trail = enemyTrail;
-			enemy3.callAll('kill');
-			game.time.events.remove(enemy3LaunchTimer);
 		}
 		
 		function shipCollide(player, enemy) {
@@ -371,6 +369,8 @@ body {
 			enemy2.callAll('kill');
 			game.time.events.remove(enemy2LaunchTimer);
 			game.time.events.add(1000, launchEnemy2);
+			enemy3.callAll('kill');
+			game.time.events.remove(enemy3LaunchTimer);
 			//  Revive the player
 			player.revive();
 			player.health = 100;
