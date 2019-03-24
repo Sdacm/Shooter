@@ -287,7 +287,7 @@ body {
 				
 				//  Update function for each enemy ship to update rotation etc
 				enemy.update = function(){
-					enemy.angle = 180 - game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
+					enemy.angle = game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
 					enemy.trail.x = enemy.x + 10;
 					enemy.trail.y = enemy.y;
 					
