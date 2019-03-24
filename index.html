@@ -181,11 +181,21 @@ body {
 			//  Reset the player, then check for movement keys
 			player.body.acceleration.y = 0;
 			player.body.acceleration.x = 0;
-			if (cursors.up.isDown && cursors.left.isDown ||
-			   cursors.up.isDown && cursors.right.isDown ||
-			   cursors.down.isDown && cursors.left.isDown ||
-			   cursors.down.isDown && cursors.right.isDown){
-				ACCLERATION *= 0.7;
+			if (cursors.up.isDown && cursors.left.isDown) {
+				player.body.acceleration.y = -0.7 * ACCLERATION;
+				player.body.acceleration.x = -0.7 * ACCLERATION;
+			}
+			if (cursors.up.isDown && cursors.right.isDown) {
+				player.body.acceleration.y = -0.7 * ACCLERATION;
+				player.body.acceleration.x = 0.7 * ACCLERATION;
+			}
+			if (cursors.down.isDown && cursors.left.isDown) {
+				player.body.acceleration.y = 0.7 * ACCLERATION;
+				player.body.acceleration.x = -0.7 * ACCLERATION;
+			} 
+			if (cursors.down.isDown && cursors.right.isDown) {
+				player.body.acceleration.y = 0.7 * ACCLERATION;
+				player.body.acceleration.x = 0.7 * ACCLERATION;
 			}
 			if (cursors.up.isDown) {
 				player.body.acceleration.y = -ACCLERATION;
