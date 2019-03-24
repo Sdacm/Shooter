@@ -47,6 +47,8 @@ body {
 		var ACCLERATION = 600;
 		var DRAG = 400;
 		var MAXSPEED = 400;
+		var shot = new Audio('assets/laser7.mp3');
+		var explosion = new Audio('assets/explosion.mp4');
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -278,6 +280,7 @@ body {
 		
 		function fireBullet() {
 			//  To avoid them being allowed to fire too fast we set a time limit
+			shot.play();
 			if (game.time.now > bulletTimer) {
 				var BULLET_SPEED = 400;
 				var BULLET_SPACING = 250;
@@ -397,7 +400,7 @@ body {
 			explosion.alpha = 0.7;
 			explosion.play('explosion', 30, false, true);
 			enemy.kill();
-			
+			explosion.play();
 			player.damage(enemy.damageAmount);
 			shields.render();
 		}
@@ -410,7 +413,7 @@ body {
 			explosion.play('explosion', 30, false, true);
 			enemy.kill();
 			bullet.kill();
-			
+			explosion.play();
 			// Increase score
 			score += enemy.damageAmount * 10;
 			scoreText.render();
