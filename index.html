@@ -24,7 +24,7 @@ body {
 		var player;
 		var enemy2;
 		var enemy3;
-		var enemyBullets;
+		var enemy3Bullets;
 		var starfield;
 		var cursors;
 		var bank;
@@ -53,7 +53,7 @@ body {
 			game.load.image('bullet', '/assets/bullets/bullet.png');
 			game.load.image('enemy2', '/assets/enemies/green-enemy.png');
 			game.load.image('enemy3', '/assets/enemies/blue-enemy.png');
-			game.load.image('enemy3Bullet', '/assets/bullets/blue-enemy-bullet.png');
+			game.load.image('enemy3Bullets', '/assets/bullets/blue-enemy-bullet.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
 		}
 		function create() {
@@ -110,7 +110,7 @@ body {
 			enemy3Bullets = game.add.group();
 			enemy3Bullets.enableBody = true;
 			enemy3Bullets.physicsBodyType = Phaser.Physics.ARCADE;
-			enemy3Bullets.createMultiple(30, 'enemy3Bullet');
+			enemy3Bullets.createMultiple(30, 'enemy3Bullets');
 			enemy3Bullets.callAll('crop', null, {x: 90, y: 0, width: 90, height: 70});
 			enemy3Bullets.setAll('alpha', 0.9);
 			enemy3Bullets.setAll('anchor.x', 0.5);
