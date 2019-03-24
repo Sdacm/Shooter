@@ -418,6 +418,7 @@ body {
 			enemy3Bullets.callAll('kill');
 			enemy3.callAll('kill');
 			game.time.events.remove(enemy3LaunchTimer);
+			game.time.events.add(1000, launchEnemy3);
 			//  Revive the player
 			player.revive();
 			player.health = 100;
