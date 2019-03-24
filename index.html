@@ -400,7 +400,6 @@ body {
 			scoreText.render();
 		}
 		
-		
 		function enemyHitsPlayer (player, bullet) {
 			var explosion = explosions.getFirstExists(false);
 			explosion.reset(player.body.x + player.body.halfWidth, player.body.y + player.body.halfHeight);
@@ -409,6 +408,7 @@ body {
 			bullet.kill();
 			player.damage(bullet.damageAmount);
 			shields.render();
+		}
 		
 		function restart () {
 			//  Reset the enemies
