@@ -342,7 +342,7 @@ body {
 						this.angle = 180 - bank * 2
 						//  Fire
 						enemyBullet = enemy3Bullets.getFirstExists(false);
-						if (enemyBullet && this.alive && this.bullets && this.y > game.width / 8 &&
+						if (enemyBullet && this.alive && this.bullets && this.x <  game.width * 7 / 8 &&
 						    game.time.now > firingDelay + this.lastShot) {
 							this.lastShot = game.time.now;
 							this.bullets--;
