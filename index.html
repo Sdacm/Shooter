@@ -47,8 +47,9 @@ body {
 		var ACCLERATION = 600;
 		var DRAG = 400;
 		var MAXSPEED = 400;
+		var music = new Audio('assets/creosong.mp3');
 		var shot = new Audio('assets/laser7.mp3');
-		var explosion = new Audio('assets/explosion.wav');
+		var explode = new Audio('assets/explosion.wav');
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -67,6 +68,7 @@ body {
 		function create() {
 			
 			game.scale.pageAlignHorizontally = true;
+			music.play();
 			
 			//  The scrolling starfield background
 			starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
@@ -400,7 +402,7 @@ body {
 			explosion.alpha = 0.7;
 			explosion.play('explosion', 30, false, true);
 			enemy.kill();
-			explosion.play();
+			explode.play();
 			player.damage(enemy.damageAmount);
 			shields.render();
 		}
