@@ -415,7 +415,7 @@ body {
 			explosion.play('explosion', 30, false, true);
 			enemy.kill();
 			bullet.kill();
-			explosion.play();
+			explode.play();
 			// Increase score
 			score += enemy.damageAmount * 10;
 			scoreText.render();
@@ -463,6 +463,8 @@ body {
 			//  Reset pacing
 			enemy2Spacing = 1000;
 			enemy3Launched = false;
+			//Music
+			music.play();
 		}
 		
 	</script>
