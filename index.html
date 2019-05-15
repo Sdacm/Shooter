@@ -307,8 +307,8 @@ body {
 						var bulletOffset = 20 * Math.sin(game.math.degToRad(player.angle));
 						bullet.reset(player.x + bulletOffset, player.y);
 						bullet.angle = player.angle;
-						game.physics.arcade.velocityFromAngle(bullet.angle - 90, BULLET_SPEED, bullet.body.velocity);
-						bullet.body.velocity.x += player.body.velocity.x;
+						game.physics.arcade.velocityFromAngle(bullet.angle, BULLET_SPEED, bullet.body.velocity);
+						bullet.body.velocity.y += player.body.velocity.y;
 						
 						bulletTimer = game.time.now + BULLET_SPACING;
 					}
@@ -331,8 +331,8 @@ body {
 							if (i === 1) spreadAngle = 0;
 							if (i === 2) spreadAngle = 20;
 							bullet.angle = player.angle + spreadAngle;
-							game.physics.arcade.velocityFromAngle(spreadAngle - 90, BULLET_SPEED, bullet.body.velocity);
-							bullet.body.velocity.x += player.body.velocity.x;
+							game.physics.arcade.velocityFromAngle(spreadAngle, BULLET_SPEED, bullet.body.velocity);
+							bullet.body.velocity.y += player.body.velocity.y;
 						}
 						bulletTimer = game.time.now + BULLET_SPACING;
 					}
