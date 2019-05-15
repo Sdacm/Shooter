@@ -305,7 +305,7 @@ body {
 						//  And fire it
 						//  Make bullet come out of tip of ship with right angle
 						var bulletOffset = 20 * Math.sin(game.math.degToRad(player.angle));
-						bullet.reset(player.x + bulletOffset, player.y);
+						bullet.reset(player.x, player.y + bulletOffset);
 						bullet.angle = player.angle;
 						game.physics.arcade.velocityFromAngle(bullet.angle, BULLET_SPEED, bullet.body.velocity);
 						bullet.body.velocity.y += player.body.velocity.y;
@@ -324,7 +324,7 @@ body {
 						if (bullet) {
 							//  Make bullet come out of tip of ship with right angle
 							var bulletOffset = 20 * Math.sin(game.math.degToRad(player.angle));
-							bullet.reset(player.x + bulletOffset, player.y);
+							bullet.reset(player.x, player.y + bulletOffset);
 							//  "Spread" angle of 1st and 3rd bullets
 							var spreadAngle;
 							if (i === 0) spreadAngle = -20;
