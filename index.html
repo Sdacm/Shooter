@@ -48,6 +48,10 @@ body {
 		var music = new Audio('assets/creosong.mp3');
 		var shot = new Audio('assets/sounds/laser7.mp3');
 		var explode = new Audio('assets/sounds/explosion.wav');
+		// Weapon
+		var weapon;
+		var weaponLaunchTimer;
+		var weaponSpacing = 1000;
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -60,6 +64,7 @@ body {
 			game.load.image('enemy2sp', '/assets/enemies/enemy2.png');
 			game.load.image('enemy3sp', '/assets/enemies/enemy3.png');
 			game.load.image('enemy3Bullet', '/assets/bullets/blue-enemy-bullet.png');
+			game.load.image('weaponsp', '/assets/Diamond_Sprite.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
 			game.load.bitmapFont('spacefont', '/assets/spacefont/spacefont.png', '/assets/spacefont/spacefont.xml');
 		}
@@ -141,6 +146,20 @@ body {
 			enemy3.forEach(function(enemy){
 				enemy.damageAmount = 40;
 			});
+			
+			// Weapon shiny diamonds
+			weapon = game.add.group();
+			weapon.enableBody = true;
+			weapon.physicsBodyType = Phaser.Physics.ARCADE;
+			weapon.createMultiple(5, 'weaponsp');
+			weapon.setAll('anchor.x', 0.5);
+			weapon.setAll('anchor.y', 0.5);
+			weapon.setAll('scale.x', 0.5);
+			weapon.forEach(function(diamond){
+				diamond.body.setSize(diamond.width * 3 / 4, diamond.height * 3 / 4);
+			});
+			
+			game.time.events.add(1000, launchWeapon);
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
@@ -263,6 +282,8 @@ body {
 			game.physics.arcade.overlap(enemy3, bullets, hitEnemy, null, this);
 			
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
+			
+			game.physics.arcade.overlap(player, weapon, weaponCollide, null, this);
 			
 			//  Game over?
 			if (! player.alive && gameOver.visible === false) {
@@ -432,6 +453,30 @@ body {
 			enemy.trail = enemyTrail;
 		}
 		
+		function launchWeapon() {
+			var WEAPON_SPEED = 100;
+			var diamond = weapon.getFirstExists(false);
+			
+			if (diamond) {
+				diamond.reset(game.width + 20, game.rnd.integerInRange(0, game.height));
+				diamond.body.velocity.x = - WEAPON_SPEED;
+				diamond.update = function() {
+					if (diamond.x < -20) {
+						diamond.kill;
+					}
+				}
+			}
+			//Send another weapon soon
+			weaponLaunchTimer = game.time.events.add(game.rnd.integerInRange(weaponSpacing, weaponSpacing + 1000), launchWeapon);	
+		}
+		
+		function weaponCollide (player, weapon) {
+			weapon.kill();
+			if (player.weaponLevel < 2) {
+				player.weaponLevel = 2;
+			}
+		}
+		
 		function shipCollide(player, enemy) {
 			enemy.kill();
 			explode.play();
@@ -505,6 +550,10 @@ body {
 			game.time.events.remove(enemy3LaunchTimer);
 			enemy3.callAll('kill');
 			game.time.events.remove(enemy3LaunchTimer);
+			// Reset the weapons
+			weapon.callAll('kill');
+			game.time.events.remove(weaponLaunchTimer);
+			game.time.events.add(1000, launchWeapon);
 			//  Revive the player
 			player.weaponLevel = 1;
 			player.revive();
