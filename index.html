@@ -51,7 +51,7 @@ body {
 		// Weapon
 		var weapon;
 		var weaponLaunchTimer;
-		var weaponSpacing = 1000;
+		var weaponSpacing = 1500;
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -160,7 +160,7 @@ body {
 				diamond.body.setSize(diamond.width * 3 / 4, diamond.height * 3 / 4);
 			});
 			
-			game.time.events.add(1000, launchWeapon);
+			game.time.events.add(1500, launchWeapon);
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
@@ -468,7 +468,7 @@ body {
 				}
 			}
 			//Send another weapon soon
-			weaponLaunchTimer = game.time.events.add(game.rnd.integerInRange(weaponSpacing, weaponSpacing + 1000), launchWeapon);	
+			weaponLaunchTimer = game.time.events.add(game.rnd.integerInRange(weaponSpacing, weaponSpacing + 1500), launchWeapon);	
 		}
 		
 		function weaponCollide (player, weapon) {
@@ -554,7 +554,7 @@ body {
 			// Reset the weapons
 			weapon.callAll('kill');
 			game.time.events.remove(weaponLaunchTimer);
-			game.time.events.add(1000, launchWeapon);
+			game.time.events.add(1500, launchWeapon);
 			//  Revive the player
 			player.weaponLevel = 1;
 			player.revive();
