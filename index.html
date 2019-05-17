@@ -477,7 +477,7 @@ body {
 		function weaponCollide (player, weapon) {
 			weapon.kill();
 			if (player.weaponLevel < 2) {
-				player.weaponLevel = 2;
+				player.weaponLevel++;
 			}
 		}
 		
@@ -521,7 +521,7 @@ body {
 				//  Slow first enemies down now that there are other enemies
 				enemy2Spacing *= 2;
 			}
-			if (!weaponLaunched && score > 1000) {
+			if (!weaponLaunched && score > 1500) {
 				weaponLaunched = true;
 				launchWeapon();
 			}
