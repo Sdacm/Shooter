@@ -51,7 +51,8 @@ body {
 		// Weapon
 		var weapon;
 		var weaponLaunchTimer;
-		var weaponSpacing = 1000;
+		//var weaponSpacing = 1000;
+		var weaponLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -161,7 +162,7 @@ body {
 				diamond.body.setSize(diamond.width * 3 / 4, diamond.height * 3 / 4);
 			});
 			
-			game.time.events.add(1000, launchWeapon);
+			//game.time.events.add(1000, launchWeapon);
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
@@ -456,7 +457,8 @@ body {
 		}
 		
 		function launchWeapon() {
-			var WEAPON_SPEED = 100;
+			var WEAPON_SPEED = 150;
+			var timeBetween = 2500;
 			var diamond = weapon.getFirstExists(false);
 			
 			if (diamond) {
@@ -469,7 +471,7 @@ body {
 				}
 			}
 			//Send another weapon soon
-			weaponLaunchTimer = game.time.events.add(game.rnd.integerInRange(weaponSpacing, weaponSpacing + 1000), launchWeapon);	
+			weaponLaunchTimer = game.time.events.add(game.rnd.integerInRange(timeBetween, timeBetween + 4000), launchWeapon);	
 		}
 		
 		function weaponCollide (player, weapon) {
@@ -519,10 +521,14 @@ body {
 				//  Slow first enemies down now that there are other enemies
 				enemy2Spacing *= 2;
 			}
-			//  Weapon upgrade
-			if (score > 4000 && player.weaponLevel < 2) {
-				player.weaponLevel = 2;
+			if (!weaponLaunched && score > 1000) {
+				weaponLaunched = true;
+				launchWeapon();
 			}
+			//  Weapon upgrade
+			//if (score > 4000 && player.weaponLevel < 2) {
+			//	player.weaponLevel = 2;
+			//}
 		}
 		
 		function enemyHitsPlayer (player, bullet) {
@@ -555,7 +561,8 @@ body {
 			// Reset the weapons
 			weapon.callAll('kill');
 			game.time.events.remove(weaponLaunchTimer);
-			game.time.events.add(1000, launchWeapon);
+			//game.time.events.add(1000, launchWeapon);
+			weaponLaunched = false;
 			//  Revive the player
 			player.weaponLevel = 1;
 			player.revive();
