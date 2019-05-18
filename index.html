@@ -50,7 +50,7 @@ body {
 		var MAXSPEED = 400;
 		//var music = new Audio('assets/creosong.mp3');
 		var music = document.getElementById("myaudio");
-		//music.volume = 0.1;
+		music.volume = 0.5;
 		var shot = new Audio('assets/sounds/laser7.mp3');
 		var explode = new Audio('assets/sounds/explosion.wav');
 		// Weapon
@@ -77,11 +77,11 @@ body {
 		function create() {
 			
 			game.scale.pageAlignHorizontally = true;
-			//music.addEventListener('ended',function(){
-			//	this.currentTime = 0;
-			//	this.play();
-			//}, false);
-			//music.play();
+			music.addEventListener('ended',function(){
+				this.currentTime = 0;
+				this.play();
+			}, false);
+			music.play();
 			
 			//  The scrolling starfield background
 			starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
