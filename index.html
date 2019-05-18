@@ -77,11 +77,11 @@ body {
 		function create() {
 			
 			game.scale.pageAlignHorizontally = true;
-			music.addEventListener('ended',function(){
-				this.currentTime = 0;
-				this.play();
-			}, false);
-			music.play();
+			//music.addEventListener('ended',function(){
+			//	this.currentTime = 0;
+			//	this.play();
+			//}, false);
+			//music.play();
 			
 			//  The scrolling starfield background
 			starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
@@ -325,6 +325,7 @@ body {
 				case 1:
 				// To avoid them being allowed to fire too fast we set a time limit
 				if (game.time.now > bulletTimer) {
+					shot.play();
 					var BULLET_SPEED = 400;
 					var BULLET_SPACING = 250;
 					//  Grab the first bullet we can from the pool
@@ -345,6 +346,7 @@ body {
 				break;
 				case 2:
 				if (game.time.now > bulletTimer) {
+					shot.play();
 					var BULLET_SPEED = 400;
 					var BULLET_SPACING = 200;
 					
@@ -369,6 +371,7 @@ body {
 				break;
 				case 3:
 				if (game.time.now > bulletTimer) {
+					shot.play();
 					var BULLET_SPEED = 400;
 					var BULLET_SPACING = 300;
 					
