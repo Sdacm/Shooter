@@ -14,6 +14,9 @@ body {
 	type="text/javascript"></script>
 </head>
 <body>
+	<audio id="myaudio" autoplay loop>
+		<source src="assets/creosong.mp3" type="audio/mpeg">
+	</audio>
 	<script type="text/javascript">
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
@@ -45,7 +48,9 @@ body {
 		var ACCLERATION = 600;
 		var DRAG = 400;
 		var MAXSPEED = 400;
-		var music = new Audio('assets/creosong.mp3');
+		//var music = new Audio('assets/creosong.mp3');
+		var music = document.getElementById("myaudio");
+		//music.volume = 0.1;
 		var shot = new Audio('assets/sounds/laser7.mp3');
 		var explode = new Audio('assets/sounds/explosion.wav');
 		// Weapon
