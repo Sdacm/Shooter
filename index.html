@@ -248,7 +248,7 @@ body {
 							explosion.alpha = beforeAlpha;
 						});
 						boss.kill();
-						booster.kill();
+						//booster.kill();
 						boss.dying = false;
 						bossDeath.on = false;
 						//  queue next boss
@@ -341,8 +341,8 @@ body {
 				// Talvez mudar para 90 ou 180
 				boss.angle = -90 - bank * 20;
 				// Talvez mudar para +10 e -5
-				booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
-				booster.y = boss.y + 5 * bank;
+				//booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
+				//booster.y = boss.y + 5 * bank;
 				//  fire if player is in target
 				// Talvez mudar para +90 ou tirar o 90 (tirar o 90 testado)
 				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player)) - 90;
@@ -353,7 +353,9 @@ body {
 				}
 			}
 
+			// TENTATIVA ALTERACAO 19 - BOOSTERS COMENTADOS
 			//  boss's boosters
+			/**
 			booster = game.add.emitter(boss.body.x + boss.width / 2, boss.body.y);
 			booster.height = 0;
 			booster.makeParticles('enemy3Bullet');
@@ -371,11 +373,10 @@ body {
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
 			// Talvez mudar --> 0.3 0 0.7 0 ou trocados (testado tudo a 0)
-			// TENTATIVA ALTERACAO 18 desfazer
 			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
 			// Talvez mudar
 			boss.bringToTop();
-
+			**/
 			//  Big explosion for boss
 			bossDeath = game.add.emitter(boss.x, boss.y);
 			bossDeath.width = boss.width / 2;
@@ -688,7 +689,7 @@ body {
 		function launchBoss() {
 			boss.reset(game.width + boss.width, game.height / 2);
 			// Talvez mudar
-			booster.start(false, 1000, 10);
+			//booster.start(false, 1000, 10);
 			boss.health = 501;
 			bossBulletTimer = game.time.now + 5000;
 		}
