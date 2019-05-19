@@ -541,6 +541,8 @@ body {
 			explode.play();
 			player.damage(enemy.damageAmount);
 			shields.render();
+			score += enemy.damageAmount * 10;
+			scoreText.render();
 			if (player.alive) {
 				var explosion = explosions.getFirstExists(false);
 				explosion.reset(player.body.x + player.body.halfWidth, player.body.y + player.body.halfHeight);
