@@ -263,39 +263,27 @@ body {
 					shields.render();
 				}
 			};
-
-			// OOF ADDRAY E BOSSFIRE
 			
 			//  Boss death ray
-			// Mudar:
 			function addRay(leftRight) {
 				var ray = game.add.sprite(leftRight * boss.width * 0.75, 0, 'deathRay');
-				// -----
 				ray.alive = false;
 				ray.visible = false;
 				boss.addChild(ray);
 				ray.crop({x: 0, y: 0, width: 40, height: 40});
 				ray.anchor.x = 0.5;
 				ray.anchor.y = 0.5;
-				// Mudar:
 				ray.scale.x = 2.5;
-				// -----
 				ray.damageAmount = boss.damageAmount;
 				game.physics.enable(ray, Phaser.Physics.ARCADE);
-				// Mudar:
 				ray.body.setSize(ray.width / 5, ray.height / 4);
-				// -----
 				ray.update = function() {
 					this.alpha = game.rnd.realInRange(0.6, 1);
 				};
-				// Mudar:
 				boss['ray' + (leftRight > 0 ? 'Right' : 'Left')] = ray;
-				// -----
 			}
-			// Talvez mudar:
 			addRay(1);
 			addRay(-1);
-			// -----
 			//  need to add the ship texture to the group so it renders over the rays
 			var ship = game.add.sprite(0, 0, 'boss');
 			ship.anchor = {x: 0.5, y: 0.5};
@@ -311,7 +299,6 @@ body {
 						ray = boss['ray' + side];
 						ray.name = side;
 						ray.revive();
-						// Mudar:
 						ray.y = 80;
 						ray.alpha = 0;
 						ray.scale.y = 13;
@@ -324,15 +311,14 @@ body {
 					}
 					chargeAndShoot('Right');
 					chargeAndShoot('Left');
-					// ----- até aqui
 					bossBulletTimer = game.time.now + raySpacing;
 				}
 			};
 
 			boss.update = function() {
 				if (!boss.alive) return;
-				//boss.rayUp.update();
-				//boss.rayDown.update();
+				boss.rayUp.update();
+				boss.rayDown.update();
 				// Mudar --> confirmar tudo:
 				if (boss.x < game.width - 140) {
 					boss.body.acceleration.x = 50;
