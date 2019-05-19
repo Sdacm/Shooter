@@ -343,8 +343,8 @@ body {
 				booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
 				booster.y = boss.y + 5 * bank;
 				//  fire if player is in target
-				// Talvez mudar para +90 ou tirar o 90
-				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player)) - 90;
+				// Talvez mudar para +90 ou -90 no fim ALTERACAO_1
+				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player));
 				// Talvez tirar o -90 ou mudar para +90
 				var anglePointing = -90 - Math.abs(boss.angle);
 				if (anglePointing - angleToPlayer < 18) {
