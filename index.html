@@ -369,7 +369,7 @@ body {
 			//  boss's boosters
 			booster = game.add.emitter(boss.body.x, boss.body.y - boss.height / 2);
 			booster.width = 0;
-			booster.makeParticles('blueEnemyBullet');
+			booster.makeParticles('enemy3Bullet');
 			booster.forEach(function(p){
 				p.crop({x: 120, y: 0, width: 45, height: 50});
 				//  clever way of making 2 exhaust trails by shifing particles randomly left or right
@@ -691,7 +691,7 @@ body {
 			}
 			
 			// Send another wave soon
-			enemy3LaunchTimer = game.time.events.add(game.rnd.integerInRange(enemy3Spacing, enemy3Spacing + 4000), launchBlueEnemy);
+			enemy3LaunchTimer = game.time.events.add(game.rnd.integerInRange(enemy3Spacing, enemy3Spacing + 4000), launchEnemy3);
 		}
 
 		function launchBoss() {
