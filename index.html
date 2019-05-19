@@ -279,9 +279,9 @@ body {
 				game.physics.enable(ray, Phaser.Physics.ARCADE);
 				ray.body.setSize(ray.width / 4, ray.height / 5);
 				ray.update = function() {
-					this.alpha = game.rnd.realInRange(0.6, 1);
+					// ALTERACAO 26 - tentativa
+					//this.alpha = game.rnd.realInRange(0.6, 1);
 				};
-				// ALTERACAO 25 - tentativa
 				boss['ray' + (upDown > 0 ? 'Down' : 'Up')] = ray;
 			}
 			addRay(1);
