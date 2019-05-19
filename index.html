@@ -339,9 +339,9 @@ body {
 				boss.scale.y = 0.6 - Math.abs(bank) / 3;
 				// Talvez mudar para 90 ou 180
 				boss.angle = -90 - bank * 20;
-				// Talvez mudar para -10 e +5
-				booster.x = boss.x + 10 * Math.abs(bank) - boss.width / 2;
-				booster.y = boss.y - 5 * bank;
+				// Talvez mudar para +10 e -5
+				booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
+				booster.y = boss.y + 5 * bank;
 				//  fire if player is in target
 				// Talvez mudar para +90 ou tirar o 90
 				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player)) - 90;
@@ -362,14 +362,14 @@ body {
 				p.anchor.x = 0.75;
 				p.anchor.y = game.rnd.pick([1,-1]) * 0.95 + 0.5;
 			});
-			// Talvez mudar para 30 e 50
-			booster.setXSpeed(-30, -50);
+			// Talvez mudar para +30 e +50
+			booster.setXSpeed(30, 50);
 			booster.setRotation(0,0);
 			booster.setYSpeed(0, 0);
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
 			// Talvez mudar --> trocar o 0.3 pelo 0.7
-			booster.setScale(0.7, 0, 0.3, 0, 5000, Phaser.Easing.Quadratic.Out);
+			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
 			// Talvez mudar
 			boss.bringToTop();
 
@@ -466,10 +466,10 @@ body {
 			
 			game.physics.arcade.overlap(player, enemy3, shipCollide, null, this);
 			game.physics.arcade.overlap(enemy3, bullets, hitEnemy, null, this);
-			game.physics.arcade.overlap(player, boss.rayRight, enemyHitsPlayer, null, this);
+			game.physics.arcade.overlap(player, boss.rayDown, enemyHitsPlayer, null, this);
 
 			game.physics.arcade.overlap(boss, bullets, hitEnemy, bossHitTest, this);
-			game.physics.arcade.overlap(player, boss.rayLeft, enemyHitsPlayer, null, this);
+			game.physics.arcade.overlap(player, boss.rayUp, enemyHitsPlayer, null, this);
 
 			
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
