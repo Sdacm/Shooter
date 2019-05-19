@@ -366,13 +366,13 @@ body {
 			});
 			// Talvez mudar para -30 e -50 (testado os 2 negativos)
 			booster.setXSpeed(30, 50);
-			// TENTATIVA ALTERACAO 17
-			//booster.setRotation(0,0);
+			booster.setRotation(0,0);
 			booster.setYSpeed(0, 0);
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
 			// Talvez mudar --> 0.3 0 0.7 0 ou trocados (testado tudo a 0)
-			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
+			// TENTATIVA ALTERACAO 18
+			booster.setScale(0, 0.3, 0, 0.7, 5000, Phaser.Easing.Quadratic.Out);
 			// Talvez mudar
 			boss.bringToTop();
 
