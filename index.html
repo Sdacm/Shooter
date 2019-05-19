@@ -317,8 +317,8 @@ body {
 
 			boss.update = function() {
 				if (!boss.alive) return;
-				boss.rayUp.update();
-				boss.rayDown.update();
+				boss.rayLeft.update();
+				boss.rayRight.update();
 				// Mudar --> confirmar tudo:
 				if (boss.x < game.width - 140) {
 					boss.body.acceleration.x = 50;
