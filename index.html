@@ -271,8 +271,7 @@ body {
 				ray.alive = false;
 				ray.visible = false;
 				boss.addChild(ray);
-				// TENTATIVA 27
-				//ray.crop({x: 0, y: 0, width: 40, height: 40});
+				ray.crop({x: 0, y: 0, width: 40, height: 40});
 				ray.anchor.x = 0.5;
 				ray.anchor.y = 0.5;
 				ray.scale.y = 2.5;
@@ -304,6 +303,7 @@ body {
 						ray.revive();
 						ray.x = game.width - 80;
 						ray.alpha = 0;
+						// TENTATIVA 28
 						ray.scale.x = 13;
 						game.add.tween(ray).to({alpha: 1}, chargeTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
 							ray.scale.x = 150;
