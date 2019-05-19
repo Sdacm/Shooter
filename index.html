@@ -38,7 +38,7 @@ body {
 		var fireButton;
 		var bulletTimer = 0;
 		var shields;
-		var score = 15000; //TESTAR O BOSS
+		var score = 15000; // TESTAR O BOSS
 		var scoreText;
 		var enemy2LaunchTimer;
 		var enemy2Spacing = 1000;
@@ -50,6 +50,9 @@ body {
 		var bossLaunched = false;
 		var bossSpacing = 20000;
 		var bossBulletTimer = 0;
+		// Mudar:
+		var bossYdirection = -1;
+		// -----
 		var gameOver;
 		var ACCLERATION = 600;
 		var DRAG = 400;
@@ -217,27 +220,31 @@ body {
 			boss.alive = false;
 			boss.anchor.setTo(0.5, 0.5);
 			boss.damageAmount = 50;
-			// Talvez mudar ALTERACAO 4:
 			boss.angle = 180;
 			boss.scale.x = 0.6;
 			boss.scale.y = 0.6;
 			game.physics.enable(boss, Phaser.Physics.ARCADE);
-			boss.body.maxVelocity.setTo(80, 100);
+			// Mudar (provavelmente):
+			boss.body.maxVelocity.setTo(100, 80);
+			// -----
 			boss.dying = false;
 			boss.finishOff = function() {
 				if (!boss.dying) {
 					boss.dying = true;
 					bossDeath.x = boss.x;
 					bossDeath.y = boss.y;
-					// Talvez mudar:
+					// Mudar (provavelmente):
 					bossDeath.start(false, 1000, 50, 20);
+					// -----
 					//  kill boss after explotions
 					game.time.events.add(1000, function(){
 						var explosion = explosions.getFirstExists(false);
 						var beforeScaleX = explosions.scale.x;
 						var beforeScaleY = explosions.scale.y;
 						var beforeAlpha = explosions.alpha;
+						// Mudar:
 						explosion.reset(boss.body.x + boss.body.halfWidth, boss.body.y + boss.body.halfHeight);
+						// -----
 						explosion.alpha = 0.4;
 						explosion.scale.x = 3;
 						explosion.scale.y = 3;
@@ -265,25 +272,35 @@ body {
 			};
 
 			//  Boss death ray
-			function addRay(upDown) {
-				var ray = game.add.sprite(upDown * boss.height * 0.75, 0, 'deathRay');
+			// Mudar:
+			function addRay(leftRight) {
+				var ray = game.add.sprite(leftRight * boss.width * 0.75, 0, 'deathRay');
+				// -----
 				ray.alive = false;
 				ray.visible = false;
 				boss.addChild(ray);
 				ray.crop({x: 0, y: 0, width: 40, height: 40});
 				ray.anchor.x = 0.5;
 				ray.anchor.y = 0.5;
-				ray.scale.y = 2.5;
+				// Mudar:
+				ray.scale.x = 2.5;
+				// -----
 				ray.damageAmount = boss.damageAmount;
 				game.physics.enable(ray, Phaser.Physics.ARCADE);
-				ray.body.setSize(ray.width / 4, ray.height / 5);
+				// Mudar:
+				ray.body.setSize(ray.width / 5, ray.height / 4);
+				// -----
 				ray.update = function() {
 					this.alpha = game.rnd.realInRange(0.6, 1);
 				};
-				boss['ray' + (upDown > 0 ? 'Up' : 'Down')] = ray;
+				// Mudar:
+				boss['ray' + (leftRight > 0 ? 'Right' : 'Left')] = ray;
+				// -----
 			}
+			// Talvez mudar:
 			addRay(1);
 			addRay(-1);
+			// -----
 			//  need to add the ship texture to the group so it renders over the rays
 			var ship = game.add.sprite(0, 0, 'boss');
 			ship.anchor = {x: 0.5, y: 0.5};
@@ -299,79 +316,74 @@ body {
 						ray = boss['ray' + side];
 						ray.name = side;
 						ray.revive();
-						ray.x = 80;
+						// Mudar:
+						ray.y = 80;
 						ray.alpha = 0;
-						ray.scale.x = 13;
+						ray.scale.y = 13;
 						game.add.tween(ray).to({alpha: 1}, chargeTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
-							ray.scale.x = 150;
-							// Talvez mudar o x para 1500
-							game.add.tween(ray).to({x: -1500}, rayTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
+							ray.scale.y = 150;
+							game.add.tween(ray).to({y: -1500}, rayTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
 								ray.kill();
 							});
 						});
 					}
-					chargeAndShoot('Up');
-					chargeAndShoot('Down');
+					chargeAndShoot('Right');
+					chargeAndShoot('Left');
+					// ----- até aqui
 					bossBulletTimer = game.time.now + raySpacing;
 				}
 			};
 
 			boss.update = function() {
 				if (!boss.alive) return;
-				boss.rayUp.update();
-				boss.rayDown.update();
-				// Mudar --> confirmar tudo:
-				if (boss.x < game.width - 140) {
-					boss.body.acceleration.x = 50;
-				}
-				if (boss.x > game.width - 140) {
-					boss.body.acceleration.x = -50;
-				}
-				if (boss.y > player.y + 50) {
+				// Mudar:
+				boss.rayLeft.update();
+				boss.rayRight.update();
+				if (boss.y > 140) {
 					boss.body.acceleration.y = -50;
-				} else if (boss.y < player.y - 50) {
+				}
+				if (boss.y < 140) {
 					boss.body.acceleration.y = 50;
+				}
+				if (boss.x > player.x + 50) {
+					boss.body.acceleration.x = -50;
+				} else if (boss.x < player.x - 50) {
+					boss.body.acceleration.x = 50;
 				} else {
-					boss.body.acceleration.y = 0;
+					boss.body.acceleration.x = 0;
 				}
 				//  Squish and rotate boss for illusion of "banking"
-				var bank = boss.body.velocity.y / MAXSPEED;
-				boss.scale.y = 0.6 - Math.abs(bank) / 3;
-				// Talvez mudar para 90 ou 180
-				boss.angle = -90 - bank * 20;
-				// Talvez mudar para +10 e -5
-				booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
-				booster.y = boss.y + 5 * bank;
+				var bank = boss.body.velocity.x / MAXSPEED;
+				boss.scale.x = 0.6 - Math.abs(bank) / 3;
+				boss.angle = 180 - bank * 20;
+				booster.x = boss.x + -5 * bank;
+				booster.y = boss.y + 10 * Math.abs(bank) - boss.height / 2;
 				//  fire if player is in target
-				// Talvez mudar para +90 ou tirar o 90 (tirar o 90 testado)
 				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player)) - 90;
-				// Talvez tirar o -90 ou mudar para +90
-				var anglePointing = -90 - Math.abs(boss.angle);
+				var anglePointing = 180 - Math.abs(boss.angle);
 				if (anglePointing - angleToPlayer < 18) {
 					boss.fire();
 				}
 			}
 
 			//  boss's boosters
-			booster = game.add.emitter(boss.body.x + boss.width / 2, boss.body.y);
-			booster.height = 0;
+			booster = game.add.emitter(boss.body.x, boss.body.y - boss.height / 2);
+			booster.width = 0;
 			booster.makeParticles('enemy3Bullet');
 			booster.forEach(function(p){
-				p.crop({x: 0, y: 120, width: 50, height: 45});
-				//  clever way of making 2 exhaust trails by shifing particles randomly up or down
-				p.anchor.x = 0.75;
-				p.anchor.y = game.rnd.pick([1,-1]) * 0.95 + 0.5;
+				p.crop({x: 120, y: 0, width: 45, height: 50});
+				//  clever way of making 2 exhaust trails by shifing particles randomly left or right
+				p.anchor.x = game.rnd.pick([1,-1]) * 0.95 + 0.5;
+				p.anchor.y = 0.75;
 			});
-			// Talvez mudar para -30 e -50 (testado os 2 negativos)
-			booster.setXSpeed(30, 50);
+			booster.setXSpeed(0, 0);
 			booster.setRotation(0,0);
-			booster.setYSpeed(0, 0);
+			booster.setYSpeed(-30, -50);
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
-			// Talvez mudar --> 0.3 0 0.7 0 ou trocados (testado tudo a 0)
 			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
-			// Talvez mudar
 			boss.bringToTop();
+			// ----- até aqui
 
 			//  Big explosion for boss
 			bossDeath = game.add.emitter(boss.x, boss.y);
@@ -466,10 +478,10 @@ body {
 			
 			game.physics.arcade.overlap(player, enemy3, shipCollide, null, this);
 			game.physics.arcade.overlap(enemy3, bullets, hitEnemy, null, this);
-			game.physics.arcade.overlap(player, boss.rayDown, enemyHitsPlayer, null, this);
+			game.physics.arcade.overlap(player, boss.rayRight, enemyHitsPlayer, null, this);
 
 			game.physics.arcade.overlap(boss, bullets, hitEnemy, bossHitTest, this);
-			game.physics.arcade.overlap(player, boss.rayUp, enemyHitsPlayer, null, this);
+			game.physics.arcade.overlap(player, boss.rayLeft, enemyHitsPlayer, null, this);
 
 			
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
@@ -539,7 +551,7 @@ body {
 							//  Make bullet come out of tip of ship with right angle
 							var bulletOffset = 20 * Math.sin(game.math.degToRad(player.angle));
 							bullet.reset(player.x, player.y + bulletOffset);
-							//  "Spread" angle of bullets
+							//  "Spread" angle of 1st and 3rd bullets
 							var spreadAngle;
 							if (i === 0) spreadAngle = -10;
 							if (i === 1) spreadAngle = 10;
@@ -683,9 +695,10 @@ body {
 		}
 
 		function launchBoss() {
-			boss.reset(game.width + boss.width, game.height / 2);
-			// Talvez mudar
+			// Mudar:
+			boss.reset(game.width / 2, -boss.height);
 			booster.start(false, 1000, 10);
+			// -----
 			boss.health = 501;
 			bossBulletTimer = game.time.now + 5000;
 		}
@@ -794,13 +807,13 @@ body {
 			//}
 		}
 
-		// Confirmar:
+		// MUDAR
 		//  Don't count a hit in the lower right and left quarants to aproximate better collisions
 		function bossHitTest(boss, bullet) {
-			if ((bullet.y > boss.y + boss.height / 5 &&
-				bullet.x < boss.x) ||
-				(bullet.y < boss.y - boss.height / 5 &&
-				bullet.x < boss.x)) {
+			if ((bullet.x > boss.x + boss.width / 5 &&
+				bullet.y > boss.y) ||
+				(bullet.x < boss.x - boss.width / 5 &&
+				bullet.y > boss.y)) {
 				return false;
 			} else {
 				return true;
