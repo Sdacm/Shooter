@@ -304,8 +304,8 @@ body {
 						ray.scale.x = 13;
 						game.add.tween(ray).to({alpha: 1}, chargeTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
 							ray.scale.x = 150;
-							// Talvez mudar o x para -1500
-							game.add.tween(ray).to({x: 1500}, rayTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
+							// Talvez mudar o x para 1500
+							game.add.tween(ray).to({x: -1500}, rayTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
 								ray.kill();
 							});
 						});
