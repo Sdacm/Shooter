@@ -277,12 +277,12 @@ body {
 				ray.scale.y = 2.5;
 				ray.damageAmount = boss.damageAmount;
 				game.physics.enable(ray, Phaser.Physics.ARCADE);
-				// ALTERACAO 24 - tentativa
-				ray.body.setSize(ray.width, ray.height);
+				ray.body.setSize(ray.width / 4, ray.height / 5);
 				ray.update = function() {
 					this.alpha = game.rnd.realInRange(0.6, 1);
 				};
-				boss['ray' + (upDown > 0 ? 'Up' : 'Down')] = ray;
+				// ALTERACAO 25 - tentativa
+				boss['ray' + (upDown > 0 ? 'Down' : 'Up')] = ray;
 			}
 			addRay(1);
 			addRay(-1);
