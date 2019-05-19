@@ -274,11 +274,11 @@ body {
 				ray.crop({x: 0, y: 0, width: 40, height: 40});
 				ray.anchor.x = 0.5;
 				ray.anchor.y = 0.5;
-				// ALTERACAO 23 - tentativa
 				ray.scale.y = 2.5;
 				ray.damageAmount = boss.damageAmount;
 				game.physics.enable(ray, Phaser.Physics.ARCADE);
-				ray.body.setSize(ray.width / 4, ray.height / 5);
+				// ALTERACAO 24 - tentativa
+				ray.body.setSize(ray.width, ray.height);
 				ray.update = function() {
 					this.alpha = game.rnd.realInRange(0.6, 1);
 				};
