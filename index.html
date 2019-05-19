@@ -266,8 +266,8 @@ body {
 
 			//  Boss death ray
 			function addRay(upDown) {
-				// Talvez ALTERACAO 7 -> tentativas
-				var ray = game.add.sprite(upDown * boss.height * 0.75, upDown * boss.height * 0.75, 'deathRay');
+				// Talvez ALTERACAO 8 -> tentativas
+				var ray = game.add.sprite(0, 0, 'deathRay');
 				ray.alive = false;
 				ray.visible = false;
 				boss.addChild(ray);
