@@ -470,10 +470,10 @@ body {
 			
 			game.physics.arcade.overlap(player, enemy3, shipCollide, null, this);
 			game.physics.arcade.overlap(enemy3, bullets, hitEnemy, null, this);
-			//game.physics.arcade.overlap(player, boss.rayDown, enemyHitsPlayer, null, this);
+			game.physics.arcade.overlap(player, boss.rayDown, enemyHitsPlayer, null, this);
 
 			game.physics.arcade.overlap(boss, bullets, hitEnemy, bossHitTest, this);
-			//game.physics.arcade.overlap(player, boss.rayUp, enemyHitsPlayer, null, this);
+			game.physics.arcade.overlap(player, boss.rayUp, enemyHitsPlayer, null, this);
 
 			
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
@@ -710,7 +710,7 @@ body {
 			var timeBetween = 10000;
 			var diamond = weapon.getFirstExists(false);
 			
-			if (diamond) {
+			if (diamond && weaponLevel <= 4) {
 				diamond.reset(game.width + 20, game.rnd.integerInRange(0, game.height));
 				diamond.body.velocity.x = - WEAPON_SPEED;
 				diamond.update = function() {
