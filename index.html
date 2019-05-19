@@ -354,15 +354,15 @@ body {
 			}
 
 			//  boss's boosters
-			// ALTERACAO 13 - tentativas
-			booster = game.add.emitter(boss.body.x, boss.body.y - boss.height / 2);
+			booster = game.add.emitter(boss.body.x + boss.width / 2, boss.body.y);
 			booster.height = 0;
 			booster.makeParticles('enemy3Bullet');
 			booster.forEach(function(p){
 				p.crop({x: 0, y: 120, width: 50, height: 45});
 				//  clever way of making 2 exhaust trails by shifing particles randomly up or down
-				p.anchor.x = 0.75;
-				p.anchor.y = game.rnd.pick([1,-1]) * 0.95 + 0.5;
+				//ALTERACAO 14 - tentativas
+				p.anchor.x = game.rnd.pick([1,-1]) * 0.95 + 0.5;
+				p.anchor.y = 0.75;
 			});
 			// Talvez mudar para -30 e -50 (testado os 2 negativos)
 			booster.setXSpeed(30, 50);
