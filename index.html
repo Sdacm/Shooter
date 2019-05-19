@@ -38,7 +38,7 @@ body {
 		var fireButton;
 		var bulletTimer = 0;
 		var shields;
-		var score = 0;
+		var score = 15000; // TESTAR O BOSS
 		var scoreText;
 		var enemy2LaunchTimer;
 		var enemy2Spacing = 1000;
@@ -343,8 +343,8 @@ body {
 				booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
 				booster.y = boss.y + 5 * bank;
 				//  fire if player is in target
-				// Talvez mudar para +90 ou -90 no fim ALTERACAO_1
-				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player));
+				// Talvez mudar para +90 ou tirar o 90 (tirar o 90 testado)
+				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player)) - 90;
 				// Talvez tirar o -90 ou mudar para +90
 				var anglePointing = -90 - Math.abs(boss.angle);
 				if (anglePointing - angleToPlayer < 18) {
@@ -362,8 +362,8 @@ body {
 				p.anchor.x = 0.75;
 				p.anchor.y = game.rnd.pick([1,-1]) * 0.95 + 0.5;
 			});
-			// Talvez mudar para +30 e +50
-			booster.setXSpeed(30, 50);
+			// Talvez mudar para +30 e +50 ALTERACAO_2
+			booster.setXSpeed(-30, -50);
 			booster.setRotation(0,0);
 			booster.setYSpeed(0, 0);
 			booster.gravity = 0;
