@@ -264,6 +264,8 @@ body {
 				}
 			};
 
+			// ALTERACAO 20 - no death ray
+			/**
 			//  Boss death ray
 			function addRay(upDown) {
 				// Talvez
@@ -285,6 +287,7 @@ body {
 			}
 			addRay(1);
 			addRay(-1);
+			
 			//  need to add the ship texture to the group so it renders over the rays
 			var ship = game.add.sprite(0, 0, 'boss');
 			ship.anchor = {x: 0.5, y: 0.5};
@@ -316,11 +319,11 @@ body {
 					bossBulletTimer = game.time.now + raySpacing;
 				}
 			};
-
+			**/
 			boss.update = function() {
 				if (!boss.alive) return;
-				boss.rayUp.update();
-				boss.rayDown.update();
+				//boss.rayUp.update();
+				//boss.rayDown.update();
 				// Mudar --> confirmar tudo:
 				if (boss.x < game.width - 140) {
 					boss.body.acceleration.x = 50;
@@ -353,7 +356,6 @@ body {
 				}
 			}
 
-			// VERIFICACAO ALTERACAO 19 - Boosters
 			//  boss's boosters
 			booster = game.add.emitter(boss.body.x + boss.width / 2, boss.body.y);
 			booster.height = 0;
@@ -469,10 +471,10 @@ body {
 			
 			game.physics.arcade.overlap(player, enemy3, shipCollide, null, this);
 			game.physics.arcade.overlap(enemy3, bullets, hitEnemy, null, this);
-			game.physics.arcade.overlap(player, boss.rayDown, enemyHitsPlayer, null, this);
+			//game.physics.arcade.overlap(player, boss.rayDown, enemyHitsPlayer, null, this);
 
 			game.physics.arcade.overlap(boss, bullets, hitEnemy, bossHitTest, this);
-			game.physics.arcade.overlap(player, boss.rayUp, enemyHitsPlayer, null, this);
+			//game.physics.arcade.overlap(player, boss.rayUp, enemyHitsPlayer, null, this);
 
 			
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
