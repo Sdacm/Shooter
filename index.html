@@ -38,7 +38,7 @@ body {
 		var fireButton;
 		var bulletTimer = 0;
 		var shields;
-		var score = 15000; // TESTAR O BOSS
+		var score = 15000; //TESTAR O BOSS
 		var scoreText;
 		var enemy2LaunchTimer;
 		var enemy2Spacing = 1000;
@@ -362,14 +362,14 @@ body {
 				p.anchor.x = 0.75;
 				p.anchor.y = game.rnd.pick([1,-1]) * 0.95 + 0.5;
 			});
-			// Talvez mudar para +30 e +50 ALTERACAO_2
-			booster.setXSpeed(-30, -50);
+			// Talvez mudar para -30 e -50 (testado os 2 negativos)
+			booster.setXSpeed(30, 50);
 			booster.setRotation(0,0);
 			booster.setYSpeed(0, 0);
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
-			// Talvez mudar --> trocar o 0.3 pelo 0.7
-			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
+			// Talvez mudar --> 0.3 0 0.7 0 ou trocados ALTERACAO 3 -> testar tudo a 0
+			booster.setScale(0, 0, 0, 0, 5000, Phaser.Easing.Quadratic.Out);
 			// Talvez mudar
 			boss.bringToTop();
 
