@@ -217,8 +217,8 @@ body {
 			boss.alive = false;
 			boss.anchor.setTo(0.5, 0.5);
 			boss.damageAmount = 50;
-			// Talvez mudar:
-			boss.angle = -90;
+			// Talvez mudar ALTERACAO 4:
+			boss.angle = 180;
 			boss.scale.x = 0.6;
 			boss.scale.y = 0.6;
 			game.physics.enable(boss, Phaser.Physics.ARCADE);
@@ -368,8 +368,8 @@ body {
 			booster.setYSpeed(0, 0);
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
-			// Talvez mudar --> 0.3 0 0.7 0 ou trocados ALTERACAO 3 -> testar tudo a 0
-			booster.setScale(0, 0, 0, 0, 5000, Phaser.Easing.Quadratic.Out);
+			// Talvez mudar --> 0.3 0 0.7 0 ou trocados (testado tudo a 0)
+			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
 			// Talvez mudar
 			boss.bringToTop();
 
