@@ -266,7 +266,7 @@ body {
 
 			//  Boss death ray
 			function addRay(upDown) {
-				// Talvez ALTERACAO 12
+				// Talvez
 				var ray = game.add.sprite(0, upDown * boss.width * 0.75, 'deathRay');
 				ray.alive = false;
 				ray.visible = false;
@@ -300,7 +300,6 @@ body {
 						ray = boss['ray' + side];
 						ray.name = side;
 						ray.revive();
-						// ALTERACAO 12
 						ray.x = game.width - 80;
 						ray.alpha = 0;
 						ray.scale.x = 13;
@@ -355,7 +354,8 @@ body {
 			}
 
 			//  boss's boosters
-			booster = game.add.emitter(boss.body.x + boss.width / 2, boss.body.y);
+			// ALTERACAO 13 - tentativas
+			booster = game.add.emitter(boss.body.x, boss.body.y - boss.height / 2);
 			booster.height = 0;
 			booster.makeParticles('enemy3Bullet');
 			booster.forEach(function(p){
