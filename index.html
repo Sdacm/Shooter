@@ -264,7 +264,7 @@ body {
 				}
 			};
 
-			// ALTERACAO 20 - no death ray
+			// ALTERACAO 21 - no death ray, yes boss fire
 			/**
 			//  Boss death ray
 			function addRay(upDown) {
@@ -292,7 +292,7 @@ body {
 			var ship = game.add.sprite(0, 0, 'boss');
 			ship.anchor = {x: 0.5, y: 0.5};
 			boss.addChild(ship);
-
+			**/
 			boss.fire = function() {
 				if (game.time.now > bossBulletTimer) {
 					var raySpacing = 3000;
@@ -319,7 +319,7 @@ body {
 					bossBulletTimer = game.time.now + raySpacing;
 				}
 			};
-			**/
+
 			boss.update = function() {
 				if (!boss.alive) return;
 				//boss.rayUp.update();
@@ -352,7 +352,7 @@ body {
 				// Talvez tirar o -90 ou mudar para +90
 				var anglePointing = -90 - Math.abs(boss.angle);
 				if (anglePointing - angleToPlayer < 18) {
-					//boss.fire();
+					boss.fire();
 				}
 			}
 
