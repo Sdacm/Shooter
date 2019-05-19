@@ -267,7 +267,6 @@ body {
 			//  Boss death ray
 			function addRay(upDown) {
 				// Talvez
-				// ALTERACAO 22 - fix ray origin
 				var ray = game.add.sprite(game.width, upDown * boss.height * 0.75, 'deathRay');
 				ray.alive = false;
 				ray.visible = false;
@@ -275,7 +274,8 @@ body {
 				ray.crop({x: 0, y: 0, width: 40, height: 40});
 				ray.anchor.x = 0.5;
 				ray.anchor.y = 0.5;
-				ray.scale.y = 2.5;
+				// ALTERACAO 23 - tentativa
+				//ray.scale.y = 2.5;
 				ray.damageAmount = boss.damageAmount;
 				game.physics.enable(ray, Phaser.Physics.ARCADE);
 				ray.body.setSize(ray.width / 4, ray.height / 5);
