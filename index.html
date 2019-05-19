@@ -304,14 +304,16 @@ body {
 						ray.x = game.width - 80;
 						ray.alpha = 0;
 						ray.scale.x = 13;
+						// TENTATIVA 31 - no tween
+						/**
 						game.add.tween(ray).to({alpha: 1}, chargeTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
 							ray.scale.x = 150;
-							// TENTATIVA 30
 							// Talvez mudar o x para 1500
 							game.add.tween(ray).to({x: 1500}, rayTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
 								ray.kill();
 							});
 						});
+						**/
 					}
 					chargeAndShoot('Up');
 					chargeAndShoot('Down');
