@@ -266,8 +266,8 @@ body {
 
 			//  Boss death ray
 			function addRay(upDown) {
-				// Talvez
-				var ray = game.add.sprite(upDown * boss.width * 0.75, 0, 'deathRay');
+				// Talvez ALTERACAO 12
+				var ray = game.add.sprite(0, upDown * boss.width * 0.75, 'deathRay');
 				ray.alive = false;
 				ray.visible = false;
 				boss.addChild(ray);
@@ -300,8 +300,8 @@ body {
 						ray = boss['ray' + side];
 						ray.name = side;
 						ray.revive();
-						// ALTERACAO 11
-						ray.x = 80;
+						// ALTERACAO 12
+						ray.x = game.width - 80;
 						ray.alpha = 0;
 						ray.scale.x = 13;
 						game.add.tween(ray).to({alpha: 1}, chargeTime, Phaser.Easing.Linear.In, true).onComplete.add(function(ray){
