@@ -84,6 +84,12 @@ body {
 			game.load.image('boss', '/assets/enemies/boss.png');
 			game.load.image('deathRay', '/assets/bullets/death-ray.png');
 		}
+		
+		game.state.add('Menu', Menu);
+		game.state.add('Level1',Level1);
+		game.state.add('Level2',Level2);
+		game.state.start('Menu');
+		
 		function create() {
 			
 			game.scale.pageAlignHorizontally = true;
