@@ -19,8 +19,8 @@ var Menu = {
 
 		var bg = game.add.image(0,0, 'background');
 
-		button1 = game.add.button(100,1750, "lvl1", click1 , this, function(){});
-		button2 = game.add.button(1000,1750, "lvl2", click2, this, function(){});
+		button1 = game.add.button(100,250, "lvl1", click1 , this, function(){});
+		button2 = game.add.button(500,250, "lvl2", click2, this, function(){});
     
 		function click1 () {
 			game.state.start('Level1');
