@@ -61,7 +61,6 @@ body {
 		// Weapon
 		var weapon;
 		var weaponLaunchTimer;
-		//var weaponSpacing = 1000;
 		var weaponLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
@@ -216,7 +215,6 @@ body {
 			boss.alive = false;
 			boss.anchor.setTo(0.5, 0.5);
 			boss.damageAmount = 50;
-			// Talvez mudar (180 testado)
 			boss.angle = -90;
 			boss.scale.x = 0.6;
 			boss.scale.y = 0.6;
@@ -228,7 +226,6 @@ body {
 					boss.dying = true;
 					bossDeath.x = boss.x;
 					bossDeath.y = boss.y;
-					// Talvez mudar:
 					bossDeath.start(false, 1000, 50, 20);
 					//  kill boss after explotions
 					game.time.events.add(1000, function(){
@@ -318,7 +315,6 @@ body {
 				if (!boss.alive) return;
 				boss.rayLeft.update();
 				boss.rayRight.update();
-				// Mudar --> confirmar tudo:
 				if (boss.x < game.width - 140) {
 					boss.body.acceleration.x = 50;
 				}
@@ -335,15 +331,11 @@ body {
 				//  Squish and rotate boss for illusion of "banking"
 				var bank = boss.body.velocity.y / MAXSPEED;
 				boss.scale.y = 0.6 - Math.abs(bank) / 3;
-				// Talvez mudar para 90 ou 180
 				boss.angle = -90 - bank * 20;
-				// Talvez mudar para +10 e -5
 				booster.x = boss.x - 10 * Math.abs(bank) - boss.width / 2;
 				booster.y = boss.y + 5 * bank;
 				//  fire if player is in target
-				// Talvez mudar para +90 ou tirar o 90 (tirar o 90 testado)
 				var angleToPlayer = game.math.radToDeg(game.physics.arcade.angleBetween(boss, player)) - 90;
-				// Talvez tirar o -90 ou mudar para +90
 				var anglePointing = -90 - Math.abs(boss.angle);
 				if (anglePointing - angleToPlayer < 18) {
 					boss.fire();
@@ -357,19 +349,15 @@ body {
 			booster.forEach(function(p){
 				p.crop({x: 0, y: 120, width: 50, height: 45});
 				//  clever way of making 2 exhaust trails by shifing particles randomly up or down
-				// Talvez
 				p.anchor.x = 0.75;
 				p.anchor.y = game.rnd.pick([1,-1]) * 0.95 + 0.5;
 			});
-			// Talvez mudar para -30 e -50 (testado os 2 negativos)
 			booster.setXSpeed(30, 50);
 			booster.setRotation(0,0);
 			booster.setYSpeed(0, 0);
 			booster.gravity = 0;
 			booster.setAlpha(1, 0.1, 400);
-			// Talvez mudar --> 0.3 0 0.7 0 ou trocados (testado tudo a 0)
 			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
-			// Talvez mudar
 			boss.bringToTop();
 
 			//  Big explosion for boss
@@ -786,14 +774,9 @@ body {
 					launchBoss();
 				});
 			}
-
-			//  Weapon upgrade
-			//if (score > 4000 && player.weaponLevel < 2) {
-			//	player.weaponLevel = 2;
-			//}
+			
 		}
 
-		// Confirmar:
 		//  Don't count a hit in the lower right and left quarants to aproximate better collisions
 		function bossHitTest(boss, bullet) {
 			if ((bullet.y > boss.y + boss.height / 5 &&
