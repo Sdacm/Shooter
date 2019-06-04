@@ -65,7 +65,7 @@ body {
 		// Asteroids
 		var asteroid;
 		var asteroidLaunchTimer;
-		var asteroidSpacing = 1000;
+		var asteroidSpacing = 2000;
 		//var asteroidLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
@@ -188,7 +188,7 @@ body {
 			asteroid.setAll('anchor.y', 0.5);
 			//asteroid.setAll('scale.x', 0.5);
 			//asteroid.setAll('scale.y', 0.5);
-			asteroid.callAll('crop', null, {x: 90, y: 0, width: 120, height: 70});
+			asteroid.callAll('crop', null, {x: 0, y: 0, width: 120, height: 70});
 			asteroid.forEach(function(rock){
 				addEnemyEmitterTrail(rock);
 				rock.body.setSize(rock.width * 3 / 4, rock.height * 3 / 4);
