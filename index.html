@@ -733,10 +733,10 @@ body {
 				rock.reset(game.width + 20, game.rnd.integerInRange(0, game.height));
 				rock.body.velocity.x = - ASTEROID_SPEED;
 				rock.body.velocity.y = game.rnd.integerInRange(-200, 200);
-				rock.trail.start(false, 800, 1);
+				//rock.trail.start(false, 800, 1);
 				rock.update = function() {
-					rock.trail.x = rock.x + 10;
-					rock.trail.y = rock.y;
+					//rock.trail.x = rock.x + 10;
+					//rock.trail.y = rock.y;
 					if (rock.x < -20) {
 						rock.kill;
 					}
