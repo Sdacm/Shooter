@@ -62,6 +62,11 @@ body {
 		var weapon;
 		var weaponLaunchTimer;
 		var weaponLaunched = false;
+		// Asteroids
+		var asteroid;
+		var asteroidLaunchTimer;
+		var asteroidSpacing = 1000;
+		var asteroidLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -75,6 +80,7 @@ body {
 			game.load.image('enemy3sp', '/assets/enemies/enemy3.png');
 			game.load.image('enemy3Bullet', '/assets/bullets/blue-enemy-bullet.png');
 			game.load.image('weaponsp', '/assets/bullets/death-ray.png');
+			game.load.image('asteroidsp', '/assets/bullets/death-ray.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
 			game.load.bitmapFont('spacefont', '/assets/spacefont/spacefont.png', '/assets/spacefont/spacefont.xml');
 			game.load.image('boss', '/assets/enemies/boss.png');
@@ -173,7 +179,24 @@ body {
 				diamond.body.setSize(diamond.width * 3 / 4, diamond.height * 3 / 4);
 			});
 			
-			//game.time.events.add(1000, launchWeapon);
+			// Watch out for asteroids!
+			asteroid = game.add.group();
+			asteroid.enableBody = true;
+			asteroid.physicsBodyType = Phaser.Physics.ARCADE;
+			asteroid.createMultiple(5, 'asteroidsp');
+			asteroid.setAll('anchor.x', 0.5);
+			asteroid.setAll('anchor.y', 0.5);
+			//asteroid.setAll('scale.x', 0.5);
+			//asteroid.setAll('scale.y', 0.5);
+			asteroid.callAll('crop', null, {x: 90, y: 0, width: 120, height: 70});
+			asteroid.forEach(function(rock){
+				addEnemyEmitterTrail(rock);
+				rock.body.setSize(rock.width * 3 / 4, rock.height * 3 / 4);
+				rock.damageAmount = 20;
+				rock.events.onKilled.add(function(){
+					rock.trail.kill();
+				});
+			});
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
@@ -452,6 +475,7 @@ body {
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
 			
 			game.physics.arcade.overlap(player, weapon, weaponCollide, null, this);
+			game.physics.arcade.overlap(player, asteroid, asteroidCollide, null, this);
 			
 			//  Game over?
 			if (! player.alive && gameOver.visible === false) {
@@ -700,6 +724,45 @@ body {
 				player.weaponLevel++;
 			}
 		}
+
+		function launchAsteroid() {
+			var ASTEROID_SPEED = 300;
+			var rock = weapon.getFirstExists(false);
+			
+			if (rock) {
+				rock.reset(game.width + 20, game.rnd.integerInRange(0, game.height));
+				rock.body.velocity.x = - ASTEROID_SPEED;
+				rock.body.velocity.y = game.rnd.integerInRange(-200, 200);
+				rock.trail.start(false, 800, 1);
+				rock.update = function() {
+					rock.trail.x = rock.x + 10;
+					rock.trail.y = rock.y;
+					if (rock.x < -20) {
+						rock.kill;
+					}
+				}
+			}
+			//Send another weapon soon
+			asteroidLaunchTimer = game.time.events.add(game.rnd.integerInRange(asteroidSpacing, asteroidSpacing + 1000), launchAsteroid);	
+		}
+		
+		function asteroidCollide (player, asteroid) {
+			asteroid.kill();
+			explode.play();
+			player.damage(asteroid.damageAmount);
+			shields.render();
+			scoreText.render();
+			if (player.alive) {
+				var explosion = explosions.getFirstExists(false);
+				explosion.reset(player.body.x + player.body.halfWidth, player.body.y + player.body.halfHeight);
+				explosion.alpha = 0.7;
+				explosion.play('explosion', 30, false, true);
+			} else {
+				playerDeath.x = player.x;
+				playerDeath.y = player.y;
+				playerDeath.start(false, 1000, 10, 10);
+			}
+		}
 		
 		function shipCollide(player, enemy) {
 			enemy.kill();
@@ -796,7 +859,7 @@ body {
 			//  Reset the enemies
 			enemy2.callAll('kill');
 			game.time.events.remove(enemy2LaunchTimer);
-			game.time.events.add(1000, launchEnemy2);
+			game.time.events.add(1000, launchEnemy2); // talvez acrescentar esta linha aos asteroides
 			enemy3.callAll('kill');
 			enemy3Bullets.callAll('kill');
 			game.time.events.remove(enemy3LaunchTimer);
@@ -808,6 +871,10 @@ body {
 			// Reset the weapons
 			weapon.callAll('kill');
 			game.time.events.remove(weaponLaunchTimer);
+			// Reset the asteroids
+			asteroid.callAll('kill');
+			game.time.events.remove(asteroidLaunchTimer);
+			asteroidLaunched = false;
 			//game.time.events.add(1000, launchWeapon);
 			weaponLaunched = false;
 			//  Revive the player
