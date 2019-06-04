@@ -66,7 +66,7 @@ body {
 		var asteroid;
 		var asteroidLaunchTimer;
 		var asteroidSpacing = 1000;
-		var asteroidLaunched = false;
+		//var asteroidLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -726,13 +726,13 @@ body {
 		}
 
 		function launchAsteroid() {
-			var ASTEROID_SPEED = 300;
+			var ASTEROID_SPEED = 250;
 			var rock = weapon.getFirstExists(false);
 			
 			if (rock) {
-				rock.reset(game.width + 20, game.rnd.integerInRange(0, game.height));
+				rock.reset(game.width + 20, game.rnd.integerInRange(20, game.height-20));
 				rock.body.velocity.x = - ASTEROID_SPEED;
-				rock.body.velocity.y = game.rnd.integerInRange(-200, 200);
+				rock.body.velocity.y = game.rnd.integerInRange(-100, 100);
 				//rock.trail.start(false, 800, 1);
 				rock.update = function() {
 					//rock.trail.x = rock.x + 10;
@@ -814,8 +814,7 @@ body {
 				weaponLaunched = true;
 				launchWeapon();
 			}
-			if (!asteroidLaunched && score > 1500) {
-				asteroidLaunched = true;
+			if (score > 500) {
 				launchAsteroid();
 			}
 			//  Launch boss
