@@ -814,6 +814,10 @@ body {
 				weaponLaunched = true;
 				launchWeapon();
 			}
+			if (!asteroidLaunched && score > 1500) {
+				weaponLaunched = true;
+				launchAsteroid();
+			}
 			//  Launch boss
 			if (!bossLaunched && score > 15000) {
 				enemy2Spacing = 5000;
