@@ -65,7 +65,7 @@ body {
 		// Asteroids
 		var asteroid;
 		var asteroidLaunchTimer;
-		var asteroidSpacing = 2000;
+		var asteroidSpacing = 5000;
 		//var asteroidLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
@@ -183,7 +183,7 @@ body {
 			asteroid = game.add.group();
 			asteroid.enableBody = true;
 			asteroid.physicsBodyType = Phaser.Physics.ARCADE;
-			asteroid.createMultiple(5, 'asteroidsp');
+			asteroid.createMultiple(30, 'asteroidsp');
 			asteroid.setAll('anchor.x', 0.5);
 			asteroid.setAll('anchor.y', 0.5);
 			//asteroid.setAll('scale.x', 0.5);
