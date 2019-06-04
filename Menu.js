@@ -4,7 +4,7 @@ var Menu = {
     
 		game.load.image('lvl1', 'assets/lvl1.png', 200,200);
 		game.load.image('lvl2', 'assets/lvl2.png', 200,200);
-		game.load.image('background', 'Tails_spaceship.png', 20,20);
+		game.load.image('background', 'assets/Tails_spaceship.png', 20,20);
 
 	},
 
