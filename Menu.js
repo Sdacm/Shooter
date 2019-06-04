@@ -17,7 +17,7 @@ var Menu = {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		var bg = game.add.image(-1300,20, 'background');
+		//var bg = game.add.image(-1300,20, 'background');
 
 		button1 = game.add.button(100,1750, "lvl1", click1 , this, function(){});
 		button2 = game.add.button(1000,1750, "lvl2", click2, this, function(){});
