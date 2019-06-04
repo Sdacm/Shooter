@@ -80,6 +80,12 @@ body {
 			game.load.image('boss', '/assets/enemies/boss.png');
 			game.load.image('deathRay', '/assets/bullets/death-ray.png');
 		}
+
+		game.state.add('Menu', Menu);
+		game.state.add('Level1',Level1);
+		game.state.add('Level2',Level2);
+		game.state.start('Menu');
+
 		function create() {
 			
 			game.scale.pageAlignHorizontally = true;
@@ -208,7 +214,6 @@ body {
 			playerDeath.makeParticles('explosion', [0,1,2,3,4,5,6,7], 10);
 			playerDeath.setAlpha(0.9, 0, 800);
 			playerDeath.setScale(0.1, 0.6, 0.1, 0.6, 1000, Phaser.Easing.Quintic.Out);
-
 			//  The boss!
 			boss = game.add.sprite(0, 0, 'boss');
 			boss.exists = false;
@@ -250,7 +255,6 @@ body {
 						//  queue next boss
 						bossLaunchTimer = game.time.events.add(game.rnd.integerInRange(bossSpacing, bossSpacing + 5000), launchBoss);
 					});
-
 					//  reset pacing for other enemies
 					enemy3Spacing = 2500;
 					enemy2Spacing = 1000;
@@ -284,13 +288,11 @@ body {
 			var ship = game.add.sprite(0, 0, 'boss');
 			ship.anchor = {x: 0.5, y: 0.5};
 			boss.addChild(ship);
-
 			boss.fire = function() {
 				if (game.time.now > bossBulletTimer) {
 					var raySpacing = 3000;
 					var chargeTime = 1500;
 					var rayTime = 1500;
-
 					function chargeAndShoot(side) {
 						ray = boss['ray' + side];
 						ray.name = side;
@@ -310,7 +312,6 @@ body {
 					bossBulletTimer = game.time.now + raySpacing;
 				}
 			};
-
 			boss.update = function() {
 				if (!boss.alive) return;
 				boss.rayLeft.update();
@@ -341,7 +342,6 @@ body {
 					boss.fire();
 				}
 			}
-
 			//  boss's boosters
 			booster = game.add.emitter(boss.body.x + boss.width / 2, boss.body.y);
 			booster.height = 0;
@@ -359,7 +359,6 @@ body {
 			booster.setAlpha(1, 0.1, 400);
 			booster.setScale(0.3, 0, 0.7, 0, 5000, Phaser.Easing.Quadratic.Out);
 			boss.bringToTop();
-
 			//  Big explosion for boss
 			bossDeath = game.add.emitter(boss.x, boss.y);
 			bossDeath.width = boss.width / 2;
@@ -367,7 +366,6 @@ body {
 			bossDeath.makeParticles('explosion', [0,1,2,3,4,5,6,7], 20);
 			bossDeath.setAlpha(0.9, 0, 900);
 			bossDeath.setScale(0.3, 1.0, 0.3, 1.0, 1000, Phaser.Easing.Quintic.Out);
-
 			//  Shields stat
 			shields = game.add.bitmapText(game.world.width - 250, 10, 'spacefont', '' + player.health +'%', 50);
 			shields.render = function () {
@@ -454,10 +452,8 @@ body {
 			game.physics.arcade.overlap(player, enemy3, shipCollide, null, this);
 			game.physics.arcade.overlap(enemy3, bullets, hitEnemy, null, this);
 			game.physics.arcade.overlap(player, boss.rayRight, enemyHitsPlayer, null, this);
-
 			game.physics.arcade.overlap(boss, bullets, hitEnemy, bossHitTest, this);
 			game.physics.arcade.overlap(player, boss.rayLeft, enemyHitsPlayer, null, this);
-
 			
 			game.physics.arcade.overlap(enemy3Bullets, player, enemyHitsPlayer, null, this);
 			
@@ -668,7 +664,6 @@ body {
 			// Send another wave soon
 			enemy3LaunchTimer = game.time.events.add(game.rnd.integerInRange(enemy3Spacing, enemy3Spacing + 4000), launchEnemy3);
 		}
-
 		function launchBoss() {
 			boss.reset(game.width + boss.width, game.height / 2);
 			// Talvez mudar
@@ -676,7 +671,6 @@ body {
 			boss.health = 501;
 			bossBulletTimer = game.time.now + 5000;
 		}
-
 		function addEnemyEmitterTrail(enemy) {
 			var enemyTrail = game.add.emitter(enemy.x + 10, player.y, 100);
 			enemyTrail.width = 10;
@@ -763,7 +757,6 @@ body {
 				weaponLaunched = true;
 				launchWeapon();
 			}
-
 			//  Launch boss
 			if (!bossLaunched && score > 15000) {
 				enemy2Spacing = 5000;
@@ -776,7 +769,6 @@ body {
 			}
 			
 		}
-
 		//  Don't count a hit in the lower right and left quarants to aproximate better collisions
 		function bossHitTest(boss, bullet) {
 			if ((bullet.y > boss.y + boss.height / 5 &&
