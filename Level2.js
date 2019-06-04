@@ -1,6 +1,9 @@
 var Level2 = {
 
   preload: function() {
+	  		game.load.baseURL = 'https://ioniodi.github.io/Shooter/';
+			game.load.crossOrigin = 'anonymous';
+	  		
 			game.load.image('starfield', '/assets/starfield.png');
 			game.load.image('ship', '/assets/ship.png');
 			game.load.image('bullet', '/assets/bullets/bullet.png');
