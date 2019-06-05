@@ -18,7 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 5
+		// ALTERACAO 6
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -187,8 +187,8 @@ body {
 			asteroid.createMultiple(5, 'asteroidsp');
 			asteroid.setAll('anchor.x', 0.5);
 			asteroid.setAll('anchor.y', 0.5);
-			asteroid.setAll('scale.x', 0.1);
-			asteroid.setAll('scale.y', 0.1);
+			asteroid.setAll('scale.x', 1.5);
+			asteroid.setAll('scale.y', 1.5);
 			asteroid.callAll('crop', null, {x: 90, y: 0, width: 120, height: 70});
 			asteroid.forEach(function(rock){
 				//addEnemyEmitterTrail(rock);
