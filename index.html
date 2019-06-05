@@ -18,7 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 10 - TENTATIVA
+		// ALTERACAO 11
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -67,7 +67,7 @@ body {
 		var asteroid;
 		var asteroidLaunchTimer;
 		var asteroidSpacing = 5000;
-		//var asteroidLaunched = false;
+		var asteroidLaunched = false;
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -187,7 +187,6 @@ body {
 			asteroid.setAll('anchor.y', 0.5);
 			asteroid.setAll('scale.x', 2);
 			asteroid.setAll('scale.y', 2);
-			asteroid.setAll('tint', 'red');
 			asteroid.callAll('crop', null, {x: 90, y: 0, width: 250, height: 100});
 			asteroid.forEach(function(rock){
 				//addEnemyEmitterTrail(rock);
@@ -814,7 +813,8 @@ body {
 				weaponLaunched = true;
 				launchWeapon();
 			}
-			if (score > 500) {
+			if (!asteroidLaunched && score > 500) {
+				asteroidLaunched = true;
 				launchAsteroid();
 			}
 			//  Launch boss
