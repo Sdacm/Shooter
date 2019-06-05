@@ -18,7 +18,6 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 18
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -230,7 +229,6 @@ body {
 			playerDeath.makeParticles('explosion', [0,1,2,3,4,5,6,7], 10);
 			playerDeath.setAlpha(0.9, 0, 800);
 			playerDeath.setScale(0.1, 0.6, 0.1, 0.6, 1000, Phaser.Easing.Quintic.Out);
-
 			//  The boss!
 			boss = game.add.sprite(0, 0, 'boss');
 			boss.exists = false;
@@ -699,7 +697,6 @@ body {
 			enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
 			enemy.trail = enemyTrail;
 		}
-
 		function addAsteroidEmitterTrail(rock) {
 			var asteroidTrail = game.add.emitter(rock.x + 10, player.y, 100);
 			asteroidTrail.width = 10;
@@ -735,7 +732,6 @@ body {
 				player.weaponLevel++;
 			}
 		}
-
 		function launchAsteroid() {
 			var ASTEROID_SPEED = 300;
 			var rock = asteroid.getFirstExists(false);
