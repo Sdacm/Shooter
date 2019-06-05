@@ -18,7 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 11
+		// ALTERACAO 12
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -189,12 +189,12 @@ body {
 			asteroid.setAll('scale.y', 2);
 			asteroid.callAll('crop', null, {x: 90, y: 0, width: 250, height: 100});
 			asteroid.forEach(function(rock){
-				//addEnemyEmitterTrail(rock);
+				addAsteroidEmitterTrail(rock);
 				rock.body.setSize(rock.width * 3 / 4, rock.height * 3 / 4);
 				rock.damageAmount = 20;
-				//rock.events.onKilled.add(function(){
-				//	rock.trail.kill();
-				//});
+				rock.events.onKilled.add(function(){
+					rock.trail.kill();
+				});
 			});
 			
 			//  And some controls to play the game with
@@ -697,6 +697,17 @@ body {
 			enemyTrail.setAlpha(0.4, 0, 800);
 			enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
 			enemy.trail = enemyTrail;
+		}
+
+		function addAsteroidEmitterTrail(rock) {
+			var asteroidTrail = game.add.emitter(rock.x + 10, player.y, 100);
+			asteroidTrail.width = 10;
+			asteroidTrail.makeParticles('explosion', [1,2,3,4,5]);
+			asteroidTrail.setYSpeed(20, -20);
+			asteroidTrail.setRotation(50,-50);
+			asteroidTrail.setAlpha(0.4, 0, 800);
+			asteroidTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
+			rock.trail = asteroidTrail;
 		}
 		
 		function launchWeapon() {
