@@ -18,6 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
+		// ALTERACAO 4
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -729,7 +730,7 @@ body {
 
 		function launchAsteroid() {
 			var ASTEROID_SPEED = 250;
-			var rock = weapon.getFirstExists(false);
+			var rock = asteroid.getFirstExists(false);
 			
 			if (rock) {
 				rock.reset(game.width + 20, game.rnd.integerInRange(20, game.height-20));
