@@ -18,7 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 8
+		// ALTERACAO 9
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -877,6 +877,7 @@ body {
 			asteroid.callAll('kill');
 			game.time.events.remove(asteroidLaunchTimer);
 			asteroidLaunched = false;
+			game.time.events.add(1000, launchAsteroid);
 			//game.time.events.add(1000, launchWeapon);
 			weaponLaunched = false;
 			//  Revive the player
