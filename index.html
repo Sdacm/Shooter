@@ -79,8 +79,8 @@ body {
 			game.load.image('enemy2sp', '/assets/enemies/enemy2.png');
 			game.load.image('enemy3sp', '/assets/enemies/enemy3.png');
 			game.load.image('enemy3Bullet', '/assets/bullets/blue-enemy-bullet.png');
-			game.load.image('weaponsp', '/assets/bullets/death-ray.png');
 			game.load.image('asteroidsp', '/asteroid.png');
+			game.load.image('weaponsp', '/assets/bullets/death-ray.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
 			game.load.bitmapFont('spacefont', '/assets/spacefont/spacefont.png', '/assets/spacefont/spacefont.xml');
 			game.load.image('boss', '/assets/enemies/boss.png');
@@ -183,20 +183,22 @@ body {
 			asteroid = game.add.group();
 			asteroid.enableBody = true;
 			asteroid.physicsBodyType = Phaser.Physics.ARCADE;
-			asteroid.createMultiple(30, 'asteroidsp');
+			asteroid.createMultiple(5, 'asteroidsp');
 			asteroid.setAll('anchor.x', 0.5);
 			asteroid.setAll('anchor.y', 0.5);
 			asteroid.setAll('scale.x', 0.1);
 			asteroid.setAll('scale.y', 0.1);
-			asteroid.callAll('crop', null, {x: 0, y: 0, width: 120, height: 70});
+			//asteroid.callAll('crop', null, {x: 0, y: 0, width: 120, height: 70});
 			asteroid.forEach(function(rock){
-				addEnemyEmitterTrail(rock);
+				//addEnemyEmitterTrail(rock);
 				rock.body.setSize(rock.width * 3 / 4, rock.height * 3 / 4);
 				rock.damageAmount = 20;
-				rock.events.onKilled.add(function(){
-					rock.trail.kill();
-				});
+				//rock.events.onKilled.add(function(){
+				//	rock.trail.kill();
+				//});
 			});
+			
+			game.time.events.add(1000, launchAsteroid);
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
