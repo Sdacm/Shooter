@@ -18,7 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 7
+		// ALTERACAO 8
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -173,8 +173,6 @@ body {
 			weapon.createMultiple(5, 'weaponsp');
 			weapon.setAll('anchor.x', 0.5);
 			weapon.setAll('anchor.y', 0.5);
-			//weapon.setAll('scale.x', 0.5);
-			//weapon.setAll('scale.y', 0.5);
 			weapon.callAll('crop', null, {x: 90, y: 0, width: 120, height: 70});
 			weapon.forEach(function(diamond){
 				diamond.body.setSize(diamond.width * 3 / 4, diamond.height * 3 / 4);
@@ -187,8 +185,8 @@ body {
 			asteroid.createMultiple(5, 'asteroidsp');
 			asteroid.setAll('anchor.x', 0.5);
 			asteroid.setAll('anchor.y', 0.5);
-			asteroid.setAll('scale.x', 1.5);
-			asteroid.setAll('scale.y', 1.5);
+			asteroid.setAll('scale.x', 2);
+			asteroid.setAll('scale.y', 2);
 			asteroid.callAll('crop', null, {x: 90, y: 0, width: 250, height: 100});
 			asteroid.forEach(function(rock){
 				//addEnemyEmitterTrail(rock);
