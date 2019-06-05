@@ -18,7 +18,7 @@ body {
 		<source src="assets/creosong.mp3" type="audio/mpeg">
 	</audio>
 	<script type="text/javascript">
-		// ALTERACAO 12
+		// ALTERACAO 13
 		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-demo', {
 			preload : preload,
 			create : create,
@@ -230,6 +230,7 @@ body {
 			playerDeath.makeParticles('explosion', [0,1,2,3,4,5,6,7], 10);
 			playerDeath.setAlpha(0.9, 0, 800);
 			playerDeath.setScale(0.1, 0.6, 0.1, 0.6, 1000, Phaser.Easing.Quintic.Out);
+
 			//  The boss!
 			boss = game.add.sprite(0, 0, 'boss');
 			boss.exists = false;
@@ -743,10 +744,10 @@ body {
 				rock.reset(game.width + 20, game.rnd.integerInRange(20, game.height-20));
 				rock.body.velocity.x = - ASTEROID_SPEED;
 				rock.body.velocity.y = game.rnd.integerInRange(-100, 100);
-				//rock.trail.start(false, 800, 1);
+				rock.trail.start(false, 800, 1);
 				rock.update = function() {
-					//rock.trail.x = rock.x + 10;
-					//rock.trail.y = rock.y;
+					rock.trail.x = rock.x + 10;
+					rock.trail.y = rock.y;
 					if (rock.x < -20) {
 						rock.kill;
 					}
